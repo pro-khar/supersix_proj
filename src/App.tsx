@@ -25,11 +25,12 @@ import {
 import { ScrollArea } from "./components/ui/scroll-area";
 
 function App() {
-  const rowsPerPage = 20;
+  const rowsPerPage = 100;
   const [startindex, setStartindex] = useState(0);
   const [endindex, setEndindex] = useState(rowsPerPage);
   const [data, setdata] = useState([]);
   const [fileName, setFileName] = useState("");
+
   const handleSubmit = (e) => {
     console.log("Done!");
     const file = e.target.files[0];
@@ -66,79 +67,92 @@ function App() {
               className=""
               onChange={handleSubmit}
             />
-            {/* <Button type="submit" >Submit</Button> */}
-          </div>
-          {data.length ? (
-            <ScrollArea
-              id="data-container"
-              className="mt-2 md:w-[90%] h-[73%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
-            >
-              <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-center">#</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead className="text-center">Credit Score</TableHead>
-                    <TableHead className="text-center">Credit Lines</TableHead>
-                    <TableHead className="text-center">Phone Number</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.slice(startindex, endindex).map((row, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="text-center">{index + 1}</TableCell>
-                      <TableCell>{row.Email}</TableCell>
-                      <TableCell>{row.Name}</TableCell>
-                      <TableCell className="text-center">
-                        {row.CreditScore}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {row.CreditLines}
-                      </TableCell>
-                      <TableCell className="text-center">
-                        {row.MaskedPhoneNumber}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </ScrollArea>
-          ) : null}
-          {data.length ? (
-            <div className="fixed bottom-4 md:bottom-10 xl:bottom-10 2xl:bottom-10">
-              <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    className={
-                      startindex === 0 ? "pointer-events-none" : undefined
-                    }
-                    onClick={() => {
-                      setStartindex(startindex - rowsPerPage);
-                      setEndindex(endindex - rowsPerPage);
-                    }}
-                  />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext
-                    className={
-                      endindex === data.length - 1
-                        ? "pointer-events-none"
-                        : undefined
-                    }
-                    onClick={() => {
-                      setStartindex(startindex + rowsPerPage);
-                      setEndindex(endindex + rowsPerPage);
-                    }}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
             </div>
-          ) : null}
-        </div>
-      </div>
+            
+            {data.length ? (
+              <ScrollArea
+                id="data-container"
+                className="mt-2 md:w-[90%] h-[73%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
+              >
+                <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
+                  <TableHeader className="sticky">
+                    <TableRow>
+                      <TableHead className="text-center">#</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Name</TableHead>
+                      <TableHead className="text-center">
+                        Credit Score
+                      </TableHead>
+                      <TableHead className="text-center">
+                        Credit Lines
+                      </TableHead>
+                      <TableHead className="text-center">
+                        Phone Number
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {data.slice(startindex, endindex).map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell className="text-center">
+                          {startindex + index + 1}
+                        </TableCell>
+                        <TableCell>{row.Email}</TableCell>
+                        <TableCell>{row.Name}</TableCell>
+                        <TableCell className="text-center">
+                          {row.CreditScore}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {row.CreditLines}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {row.MaskedPhoneNumber}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </ScrollArea>
+            ) : null}
+            {data.length ? (
+              <div
+                className="fixed bottom-4 md:bottom-10 xl:bottom-10 2xl:bottom-10"
+                style={{ userSelect: "none" }}
+              >
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious
+                        className={
+                          startindex === 0
+                            ? "pointer-events-none text-gray-200"
+                            : undefined
+                        }
+                        onClick={() => {
+                          setStartindex(startindex - rowsPerPage);
+                          setEndindex(endindex - rowsPerPage);
+                        }}
+                      />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationNext
+                        className={
+                          endindex === data.length - 1
+                            ? "pointer-events-none  text-gray-200"
+                            : undefined
+                        }
+                        onClick={() => {
+                          setStartindex(startindex + rowsPerPage);
+                          setEndindex(endindex + rowsPerPage);
+                        }}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            ) : null}
+          </div>
+        </div>  
     </>
   );
 }
