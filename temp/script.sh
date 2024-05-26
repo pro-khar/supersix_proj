@@ -128,13 +128,14 @@ mask_phone_number() {
 }
 
 # Generate CSV file with user data
-csv_file="user_data.csv"
+# csv_file="user_data.csv"
+csv_file="user_data_small.csv"
 echo "Email,Name,CreditScore,CreditLines,MaskedPhoneNumber" > "$csv_file"
 
 # Use an array to hold all the data
 declare -a data_array
 
-for (( i=1; i<=200000; i++ )); do
+for (( i=1; i<=100; i++ )); do
     email="user${i}@example.com"
     name=$(generate_name)
     credit_score=$((500 + RANDOM % 351)) # Random credit score between 500 and 850
