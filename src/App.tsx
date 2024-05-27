@@ -78,7 +78,12 @@ function App() {
           <ModeToggle />
         </div>
 
-        <div id="background" className={`w-1/2 ${data.length?"hidden":"md:block xl:block 2xl:block"} hidden`}></div>
+        <div
+          id="background"
+          className={`w-1/2 ${
+            data.length ? "hidden" : "md:block xl:block 2xl:block"
+          } hidden`}
+        ></div>
 
         <div
           id="objects_container"
@@ -86,14 +91,15 @@ function App() {
             data.length ? null : "justify-center"
           } pt-5`}
         >
-          <h1 className="">
-            {data.length ? fileName : ("Upload/Drag a CSV file to continue")}
+          <h1 className="font-semibold">
+            {data.length ? fileName : "Upload/Drag a CSV file to continue"}
           </h1>
-          <div className="flex w-[71%] gap-8 justify-center">
+
+          <div className="flex w-[71%] gap-x-8 gap-y-3 justify-center flex-wrap 2xl:flex-nowrap md:flex-nowrap xl:flex-nowrap">
             <Input
               type="file"
               accept=".csv"
-              className={`${data.length ? "w-[600px]" : "w-[250px]"} py-[5px]`}
+              className={`${data.length ? "w-[250px]" : "w-[250px]"} py-[5px]`}
               onChange={handleSubmit}
             />
             {data.length ? (
@@ -108,20 +114,23 @@ function App() {
               </div>
             ) : null}
             {data.length ? (
-              <h1 className="w-full border rounded-md text-center pt-2 text-sm text-gray-500">
+              <h1 className="w-[fit-content] px-3 border rounded-md text-center py-2 text-sm text-gray-500">
                 Showing {startindex + 1} to {endindex} of {data.length - 1}{" "}
                 entries
               </h1>
             ) : null}
           </div>
           {isLoading ? (
-            <Progress value={progress} className="w-[200px] md:w-[500px] xl:w-[500px]  2xl:w-[500px]" />
+            <Progress
+              value={progress}
+              className="w-[200px] md:w-[500px] xl:w-[500px]  2xl:w-[500px]"
+            />
           ) : null}
 
           {data.length ? (
             <ScrollArea
               id="data-container"
-              className="mt-2 md:w-[90%] h-[73%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
+              className="mt-2 md:w-[90%] h-[65%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
             >
               <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
                 <TableHeader className="sticky">
