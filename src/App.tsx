@@ -3,6 +3,7 @@ import { Button } from "./components/ui/button";
 import { Input } from "./components/ui/input";
 import Papa from "papaparse";
 import { useState } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -12,20 +13,62 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Progress } from "@/components/ui/progress";
+
 import { ScrollArea } from "./components/ui/scroll-area";
+import { Label } from "./components/ui/label";
 
 function App() {
+  const rowsPerPage = 100;
+  const [startindex, setStartindex] = useState(0);
+  const [endindex, setEndindex] = useState(rowsPerPage);
   const [data, setdata] = useState([]);
+  const [fileName, setFileName] = useState("");
+  const [rowsPerPageInput, setRowsPerPageInput] = useState(rowsPerPage);
+  const [progress, setprogress] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = (e) => {
-    console.log("Done!");
     const file = e.target.files[0];
-    Papa.parse(file, {
-      header: true,
-      complete: (results) => {
-        setdata(results.data);
-      },
-    });
+    setFileName(file.name);
+    setIsLoading(true);
+    setprogress(0);
+
+    const totalDuration = 1000;
+    const progressInterval = 100;
+    let elapsedTime = 0;
+
+    const interval = setInterval(() => {
+      elapsedTime += progressInterval;
+      const progressValue = (elapsedTime / totalDuration) * 100;
+      setprogress(progressValue);
+    }, progressInterval);
+
+    setTimeout(() => {
+      Papa.parse(file, {
+        header: true,
+        complete: (results) => {
+          setdata(results.data);
+          setIsLoading(false);
+          clearInterval(interval);
+        },
+      });
+    }, totalDuration);
   };
+  useEffect(() => {
+    setRowsPerPageInput(rowsPerPageInput);
+    setStartindex(0);
+    setEndindex(rowsPerPageInput);
+  }, [rowsPerPageInput]);
 
   return (
     <>
@@ -39,27 +82,44 @@ function App() {
           } pt-5`}
         >
           <h1 className="scroll-m-20 border-b pb-2 text-2xl md:text-3xl xl:text-3xl 2xl:text-3xl font-semibold tracking-tight first:mt-0">
-            {data.length ? "Result" : "Upload a CSV file to continue"}
+            {data.length ? fileName : "Upload a CSV file to continue"}
           </h1>
-          <div
-            className="flex w-[70%] md:w-1/3 xl:w-1/3 2xl:w-1/3 gap-2"
-            onSubmit={handleSubmit}
-          >
+          <div className="flex w-[71%] gap-8 justify-center">
             <Input
               type="file"
               accept=".csv"
-              className=""
+              className="w-[500px] py-[5px]"
               onChange={handleSubmit}
             />
-            {/* <Button type="submit" >Submit</Button> */}
+            {data.length ? (
+              <div className="flex">
+                <Label className="w-[80px] pt-1">Rows per page:</Label>
+                <Input
+                  className="w-[80px]"
+                  type="number"
+                  value={rowsPerPageInput}
+                  onChange={(e) => setRowsPerPageInput(Number(e.target.value))}
+                />
+              </div>
+            ) : null}
+            {data.length ? (
+              <h1 className="w-full border rounded-md text-center pt-1">
+                Showing {startindex + 1} to {endindex} of {data.length - 1}{" "}
+                entries
+              </h1>
+            ) : null}
           </div>
+          {isLoading ? (
+            <Progress value={progress} className="w-[500px]" />
+          ) : null}
+
           {data.length ? (
             <ScrollArea
               id="data-container"
-              className="mt-2 md:w-[90%] md:h-[700px] rounded border"
+              className="mt-2 md:w-[90%] h-[73%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
             >
               <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
-                <TableHeader>
+                <TableHeader className="sticky">
                   <TableRow>
                     <TableHead className="text-center">#</TableHead>
                     <TableHead>Email</TableHead>
@@ -70,9 +130,11 @@ function App() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {data.map((row, index) => (
+                  {data.slice(startindex, endindex).map((row, index) => (
                     <TableRow key={index}>
-                      <TableCell className="text-center">{index + 1}</TableCell>
+                      <TableCell className="text-center">
+                        {startindex + index + 1}
+                      </TableCell>
                       <TableCell>{row.Email}</TableCell>
                       <TableCell>{row.Name}</TableCell>
                       <TableCell className="text-center">
@@ -89,9 +151,44 @@ function App() {
                 </TableBody>
               </Table>
             </ScrollArea>
-          ) : (
-            <h2>No data</h2>
-          )}
+          ) : null}
+          {data.length ? (
+            <div
+              className="fixed bottom-4 md:bottom-10 xl:bottom-10 2xl:bottom-10"
+              style={{ userSelect: "none" }}
+            >
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      className={
+                        startindex === 0
+                          ? "pointer-events-none text-gray-200"
+                          : undefined
+                      }
+                      onClick={() => {
+                        setStartindex(startindex - rowsPerPage);
+                        setEndindex(endindex - rowsPerPage);
+                      }}
+                    />
+                  </PaginationItem>
+                  <PaginationItem>
+                    <PaginationNext
+                      className={
+                        endindex === data.length - 1
+                          ? "pointer-events-none  text-gray-200"
+                          : undefined
+                      }
+                      onClick={() => {
+                        setStartindex(startindex + rowsPerPage);
+                        setEndindex(endindex + rowsPerPage);
+                      }}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          ) : null}
         </div>
       </div>
     </>
