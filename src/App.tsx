@@ -73,12 +73,16 @@ function App() {
 
   return (
     <>
-      <div id="base" className="">
+      <div id="base" className="flex">
         <div className="absolute right-2 top-2">
           <ModeToggle />
         </div>
+
+        <div id="background" className={`w-1/2 ${data.length?"hidden":"block"}`}></div>
+
         <div
-          className={`flex flex-col gap-4 h-full items-center ${
+          id="objects_container"
+          className={`flex flex-col gap-4 h-full items-center w-full ${
             data.length ? null : "justify-center"
           } pt-5`}
         >
@@ -89,7 +93,7 @@ function App() {
             <Input
               type="file"
               accept=".csv"
-              className={`${data.length?"w-[600px]":"w-[250px]"} py-[5px]`}
+              className={`${data.length ? "w-[600px]" : "w-[250px]"} py-[5px]`}
               onChange={handleSubmit}
             />
             {data.length ? (
