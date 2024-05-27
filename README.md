@@ -32,10 +32,10 @@ This is a React application that allows users to upload and view CSV files in a 
 
 To run the application locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-repo.git`
-2. Install dependencies: `npm install` or `npm i`
-3. Start the development server: `npm run dev`
-4. Open the application in your browser at `http://localhost:5173`
+1. Clone the repository: `git clone https://github.com/pro-khar/supersix_proj.git`
+3. Install dependencies: `npm install` or `npm i`
+4. Start the development server: `npm run dev`
+5. Open the application in your browser at `http://localhost:5173`
 
 ## Contributing
 
