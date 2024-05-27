@@ -1,5 +1,5 @@
 # Prakhar Verma - 9920102113 - ASSIGNMENT - Super Six Sports Gaming Pvt Ltd
-
+LIVE Deployment: https://pro-khar.github.io/supersix_proj/
 ## Project overview
 
 This is a React application that allows users to upload and view CSV files in a tabular format. It provides several features to enhance the user experience and make it easier to navigate through large datasets with full efficiency.
