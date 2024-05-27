@@ -78,7 +78,7 @@ function App() {
           <ModeToggle />
         </div>
 
-        <div id="background" className={`w-1/2 ${data.length?"hidden":"block"}`}></div>
+        <div id="background" className={`w-1/2 ${data.length?"hidden":"md:block xl:block 2xl:block"} hidden`}></div>
 
         <div
           id="objects_container"
@@ -86,8 +86,8 @@ function App() {
             data.length ? null : "justify-center"
           } pt-5`}
         >
-          <h1 className="scroll-m-20 border-b pb-2 text-2xl md:text-3xl xl:text-3xl 2xl:text-3xl font-semibold tracking-tight first:mt-0">
-            {data.length ? fileName : "Upload/Drag a CSV file to continue"}
+          <h1 className="">
+            {data.length ? fileName : ("Upload/Drag a CSV file to continue")}
           </h1>
           <div className="flex w-[71%] gap-8 justify-center">
             <Input
@@ -115,7 +115,7 @@ function App() {
             ) : null}
           </div>
           {isLoading ? (
-            <Progress value={progress} className="w-[500px]" />
+            <Progress value={progress} className="w-[200px] md:w-[500px] xl:w-[500px]  2xl:w-[500px]" />
           ) : null}
 
           {data.length ? (
