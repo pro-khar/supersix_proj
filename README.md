@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# Prakhar Verma - 9920102113 - ASSIGNMENT - Super Six Sports Gaming Pvt Ltd
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project overview
 
-Currently, two official plugins are available:
+This is a React application that allows users to upload and view CSV files in a tabular format. It provides several features to enhance the user experience and make it easier to navigate through large datasets with full efficiency.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+1. **File Upload**: Users can upload CSV files by clicking the "Upload CSV" button or dragging and dropping the file into the designated area.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. **Data Preview**: After uploading a file, the application displays the CSV data in a tabular format. The table includes columns for various fields such as Email, Name, Credit Score, Credit Lines, and Phone Number.
 
-- Configure the top-level `parserOptions` property like this:
+3. **Pagination**: To handle large datasets, the application implements pagination. Users can specify the number of rows to display per page using the `Rows per page` input field. The application displays the current page range (e.g., "*Showing 1 to 100 of 1000 entries*") to provide context about the displayed data.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+4. **Pagination Controls**: Users can navigate through the pages using the pagination controls at the bottom of the table. The controls include previous and next buttons, allowing users to move back and forth between pages.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+5. **Loading Progress**: During the file upload process, the application displays a progress bar to provide visual feedback on the upload status.
+
+6. **Responsive Design**: The table and other components are designed to be responsive, ensuring a seamless experience across different screen sizes and devices.
+
+7. **Dark Mode Toggle**: The application includes a toggle button to switch between light and dark modes, catering to user preferences.
+
+## Technologies Used
+
+- React.js
+- React Hooks (useState, useEffect)
+- Papaparse.js (for parsing CSV files)
+- Tailwind CSS (for styling)
+- Shadcn/ui (UI component library)
+
+## Getting Started
+
+To run the application locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/your-repo.git`
+2. Install dependencies: `npm install` or `npm i`
+3. Start the development server: `npm run dev`
+4. Open the application in your browser at `http://localhost:5173`
+
+## Contributing
+
+Contributions are welcome! If you find any issues or want to add new features, please open an issue or submit a pull request.
