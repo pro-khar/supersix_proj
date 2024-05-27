@@ -27,6 +27,7 @@ import { Progress } from "@/components/ui/progress";
 
 import { ScrollArea } from "./components/ui/scroll-area";
 import { Label } from "./components/ui/label";
+import { FaGithub } from "react-icons/fa";
 
 function App() {
   const rowsPerPage = 100;
@@ -76,6 +77,9 @@ function App() {
       <div id="base" className="flex">
         <div className="absolute right-2 top-2">
           <ModeToggle />
+        </div>
+        <div className="absolute left-2 top-2">
+          <Button className="text-md w-10"><a href="https://github.com/pro-khar" target="_blank"><FaGithub/></a></Button>
         </div>
 
         <div

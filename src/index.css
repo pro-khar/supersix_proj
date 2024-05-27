@@ -9,6 +9,7 @@ body,
   font-family: "IBM Plex Sans", "sans-serif";
 }
 #background{
+  z-index: -5;
   background:
       repeating-conic-gradient(from 30deg,#0000 0 120deg,#f5a769 0 180deg) 
        106px 61.16199999999999px,
