@@ -4,6 +4,7 @@ import { Input } from "./components/ui/input";
 import Papa from "papaparse";
 import { useState } from "react";
 import { useEffect } from "react";
+
 import {
   Table,
   TableBody,
@@ -82,13 +83,13 @@ function App() {
           } pt-5`}
         >
           <h1 className="scroll-m-20 border-b pb-2 text-2xl md:text-3xl xl:text-3xl 2xl:text-3xl font-semibold tracking-tight first:mt-0">
-            {data.length ? fileName : "Upload a CSV file to continue"}
+            {data.length ? fileName : "Upload/Drag a CSV file to continue"}
           </h1>
           <div className="flex w-[71%] gap-8 justify-center">
             <Input
               type="file"
               accept=".csv"
-              className="w-[500px] py-[5px]"
+              className={`${data.length?"w-[600px]":"w-[250px]"} py-[5px]`}
               onChange={handleSubmit}
             />
             {data.length ? (
@@ -103,7 +104,7 @@ function App() {
               </div>
             ) : null}
             {data.length ? (
-              <h1 className="w-full border rounded-md text-center pt-1">
+              <h1 className="w-full border rounded-md text-center pt-2 text-sm text-gray-500">
                 Showing {startindex + 1} to {endindex} of {data.length - 1}{" "}
                 entries
               </h1>
