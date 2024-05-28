@@ -75,7 +75,7 @@ function App() {
   return (
     <>
       <div id="base" className="flex">
-        <div className="absolute right-2 top-2">
+        <div className="absolute right-3 top-2">
           <ModeToggle />
         </div>
         <div className="absolute left-2 top-2">
@@ -138,7 +138,7 @@ function App() {
           {data.length ? (
             <ScrollArea
               id="data-container"
-              className="mt-2 md:w-[90%] h-[65%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border dark:bg-zinc-900"
+              className="mt-2 w-[90%] md:w-[90%] h-[65%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border dark:bg-zinc-900"
             >
               <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
                 <TableHeader className="sticky">
