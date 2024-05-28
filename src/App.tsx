@@ -79,7 +79,11 @@ function App() {
           <ModeToggle />
         </div>
         <div className="absolute left-2 top-2">
-          <Button className="text-md w-10"><a href="https://github.com/pro-khar" target="_blank"><FaGithub/></a></Button>
+          <Button className="text-md w-10">
+            <a href="https://github.com/pro-khar" target="_blank">
+              <FaGithub />
+            </a>
+          </Button>
         </div>
 
         <div
@@ -118,7 +122,7 @@ function App() {
               </div>
             ) : null}
             {data.length ? (
-              <h1 className="w-[fit-content] px-3 border rounded-md text-center py-2 text-sm text-gray-500">
+              <h1 className="w-[fit-content] px-3 border rounded-md text-center py-2 text-sm text-gray-500 dark:text-zinc-400">
                 Showing {startindex + 1} to {endindex} of {data.length - 1}{" "}
                 entries
               </h1>
@@ -134,7 +138,7 @@ function App() {
           {data.length ? (
             <ScrollArea
               id="data-container"
-              className="mt-2 md:w-[90%] h-[65%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border"
+              className="mt-2 md:w-[90%] h-[65%] md:h-[700px] xl:h-[700px] 2xl:h-[700px] rounded border dark:bg-zinc-900"
             >
               <Table className="text-xs md:text-sm xl:text-sm 2xl:text-sm">
                 <TableHeader className="sticky">
